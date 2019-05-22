@@ -58,7 +58,6 @@
 /* index */
 .flow-item {
     width: calc((100% - 140px)/7);
-    height: calc((100% - 140px)/7);
     float: left;
     margin: 0 20px 20px 0;
     background: #ccc;
