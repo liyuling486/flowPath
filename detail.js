@@ -1,5 +1,5 @@
 
-var dragData = [];
+var dragData = [];  // 总数据
 var direction = ['top', 'right', 'bottom', 'left'];
 
 var dirCH = {
@@ -10,20 +10,20 @@ var dirCH = {
 }
 var color = ['#000000', '#1393AA', '#3073C1', '#A13E52', '#31A068'];
 var STATUS = {};     // 设备连接状态
-var delLine = {};   // link, linked
+var delLine = {};   //  选中复选框后  [link, linked]
 var layer, layerIndex;
 var LINEITEM = [];      // [['M100', '10', 'H200', 'V20'], '#000', intype, outype]
-var numColor = {};
-var point = {x:{}, y:{}}
+var numColor = {};      // ['#000':[{x1, y1}, {x2, y2}]]
+var point = {x:{}, y:{}}    // line 坐标 {x:{x1: [y1, y2]}, y:{y1: [x1, x2]}}
 
-var dClient = $("#flow").offset().top;
-var dLeft = $("#flow").offset().left;
+var dClient = $("#flow").offset().top;      // 鼠标位置
+var dLeft = $("#flow").offset().left;       // 鼠标位置
 var width = 280;
 var height = 100;
 var spaceX = 100;
 var spaceY = 100;
 var lineSpace = 4;  // 如果线重叠  向后移动  / px
-var turnSpace = 40;
+var turnSpace = 40; // 拐点 / 转弯  / px
 
 layui.use(['layer', 'form'], function () {
     layer = layui.layer;
@@ -324,7 +324,7 @@ function links(data, index, datas) { // 线的走向
     return [countHtml, data.color];
 }
 
-function reload() {
+function reload() { // 重新加载
     $(function () {
         var html = "";
         var g = "";
@@ -395,7 +395,7 @@ function lineCross(data, color1, inType, outType, sign) {  // 判断线交叉
     var b = {};
     var p1 = {};
     var p2 = {};
-    var x1, x2, y1, y2, arc = 0;
+    var x1, x2, y1, y2 = 0;
     var fin = {};
     var fin1 = {};
     var obj = {};
@@ -547,7 +547,6 @@ function lineCross(data, color1, inType, outType, sign) {  // 判断线交叉
                             // 线标结束
                                 
                             var str = segmentsIntr(p1, p2, p3, p4);
-                            arc = 0;
                             if (v.substr(0, 1) == 'H') {
                                 x1 = str.x - 3
                                 x2 = str.x + 3
@@ -564,7 +563,7 @@ function lineCross(data, color1, inType, outType, sign) {  // 判断线交叉
                             }else if((p2.x == p3.x || p2.y == p3.y) || (p2.x == p4.x || p2.y == p4.y)){
                                 obj.circle += ''
                             }else{
-                                obj.circle += `<path d="M${x1} ${y1} A 3 3 ${arc} 1 1 ${x2} ${y2}" stroke="${color1}" stroke-width="2" fill="#F2F4F5" fill-opacity="1"/>`
+                                obj.circle += `<path d="M${x1} ${y1} A 3 3 0 1 1 ${x2} ${y2}" stroke="${color1}" stroke-width="2" fill="#F2F4F5" fill-opacity="1"/>`
                             }
                         }
                     })
@@ -786,7 +785,7 @@ function drag(word, name, type, id) {
 
         if(dragData.length > 0){
             var str = dragData[dragData.length - 1].sign;
-            sign = String.fromCharCode(str.charCodeAt() + 1)
+            sign = String.fromCharCode(str.charCodeAt() + 1)    // 'a', 'b'
         }
         // $('svg').css('background', 'none');
         
@@ -811,15 +810,14 @@ function drag(word, name, type, id) {
         if (type == "outside") {    // 外向里 拖动
             dragData.push({
                 id: dragData.length,
-                position: position,
-                sign: sign,
+                position: position, // 设备位置 [0, 0] [0, 1]
+                sign: sign,     // 'a', 'b'
                 label: word,    // 中文设备名
                 name: name,     // 标识  id
                 x: x,
                 y: y,
                 link: [],
                 linked: [],
-                draw: false,
                 top: {
                     0: {},
                     1: {},
@@ -965,11 +963,11 @@ function changeSpace(x1, y1){   // 改变设备位置
     var x = 0;
     var y = 0;
 
-    x = x1 * (spaceX + width);    // 固定位置
+    x = x1 * (spaceX + width);
     y = y1 * (spaceY + height);
 
-    x = x == 0 ? spaceX : (x + spaceX)     // 左侧留出 100 空隙
-    y = y == 0 ? spaceY : (y + spaceY)     // 上面留出 100 空隙
+    x = x == 0 ? spaceX : (x + spaceX)     // 左侧留出 空隙
+    y = y == 0 ? spaceY : (y + spaceY)     // 上面留出 空隙
     return [x, y];
 }
 
@@ -999,6 +997,7 @@ $("svg").on("click", function (e) {
     $('#flow li .deleteIcon').hide();
     clearStatus();
 });
+
 $('#config').on('click', function(){
     spaceX = parseInt($('#devSpaceX').val()) || 100;
     spaceY = parseInt($('#devSpaceY').val()) || 100;
@@ -1007,6 +1006,7 @@ $('#config').on('click', function(){
 
     user();
 })
+
 $(document).on("mouseover", '.input', function (event) {
     $(this).siblings('.input').css('z-index', '50');
     $(this).css('z-index', '100');
@@ -1107,7 +1107,6 @@ $(document).on('click', '.closeBtn', function () {
 $('svg').mouseup(function (e) {
     $('svg').unbind('mousemove');
     for (var i = 0; i < dragData.length; i++) {
-        dragData[i].draw = false;
         if (dragData[i].name == STATUS.name) {
             dragData[i].link.pop();
 
