@@ -1,0 +1,486 @@
+.layui-fluid {
+    height: 100vh;
+    padding: 0;
+    background: #F2F4F5;
+}
+
+.header {
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.125rem;
+    color: #333;
+    padding-left: 20px;
+    background: #fff;
+    box-shadow: 0px 1px 0px 0px rgba(204, 204, 204, 1);
+}
+.header a{
+    color: #666;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.header div{
+    display: inline-block;
+}
+.row {
+    padding: 20px;
+    font-size: 26px;
+    color: #CCC;
+}
+
+.layui-btn {
+    width: 164px;
+    height: 44px;
+    line-height: 44px;
+    background: #40AAF4;
+    font-size: 1.125rem;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.body {
+    padding: 20px;
+    height: calc(100vh - 100px);
+}
+
+.body-title {
+    line-height: 40px;
+    font-size: 1.125rem;
+    color: #999;
+}
+
+.body-content {
+    width: calc(100vw - 40px);
+    height: 100%;
+    margin-right: -20px;
+    overflow: hidden;
+}
+
+/* index */
+.flow-item {
+    width: calc((100% - 140px)/7);
+    height: calc((100% - 140px)/7);
+    float: left;
+    margin: 0 20px 20px 0;
+    background: #ccc;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.flow-item .top {
+    height: calc(100% - 42px);
+}
+.flow-item .top .firstPic{
+    width: 100%;
+    height: 100%;
+}
+.flow-item .top .mask{
+    width: 100%;
+    height: calc(100% - 42px);
+    background: #000;
+    opacity:0.4;
+    position: absolute;
+    top: 0;
+}
+.flow-item .bottom {
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    color: #333;
+    font-size: 1.125rem;
+    background: #fff;
+}
+
+.layui-form-select dl dd.layui-this{
+    background-color: #3198E1;
+}
+
+/* opener */
+.xjlcOpen .layui-layer-content{
+    height: 150px!important;
+}
+.openTitle{
+    font-size: 1.125rem;
+    color: #333;
+    padding: 30px 0 40px 20px;
+}
+.openContent{
+    padding: 0 20px;
+    color: #999;
+    font-size: 1rem;
+}
+.xjlcOpen .layui-input{
+    border-width: 0;
+    border-bottom-width: 1px;
+}
+.layui-layer .layui-layer-btn a{
+    width: 94px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    font-size: 1.125rem;
+    border-radius: 4px;
+}
+.layui-layer-btn a.layui-layer-btn0{
+    border: 0;
+    color: #666;
+    font-size: 1rem;
+    background: #fff;
+}
+.layui-layer-btn a.layui-layer-btn1{
+    background: #40AAF4;
+    color: #fff;
+    border: 0;
+}
+.layui-layer-shade{
+    top: 60px!important;
+}
+
+/* detail */
+#save{
+    position: absolute;
+    right: 30px;
+    top: 8px;
+    color: #fff;
+}
+#look{
+    position: absolute;
+    right: 220px;
+    top: 8px;
+    color: #fff;
+}
+.body-content .left {
+    width: 70%;
+    height: 76vh;
+    font-size: 1.125rem;
+    float: left;
+    overflow: auto;
+    position: relative;
+}
+.body-content .right {
+    width: 30%;
+    height: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+    float: left;
+    border-left: 1px solid #ccc;
+    overflow: hidden;
+    position: relative;
+}
+.select-device{
+    width: 60%;
+    border: 1px solid #ccc;
+    font-size: 0;
+    position: absolute;
+    top: 0;
+}
+.display-device{
+    /* height: calc(100% - 60px); */
+    height: 60%;
+    margin-top: 60px;
+    overflow-y: auto;
+}
+.select-split-line{
+    display: inline-block;
+    vertical-align: -3px;
+    width: 1px;
+    height: 18px;
+    background: #ccc;
+}
+.select-device .layui-unselect{
+    border: 0!important;
+    display: inline-block;
+    font-size: 1rem;
+    color: #333;
+    background: transparent;
+}
+#device-type + .layui-unselect{
+    width: 109px;
+}
+#device-type-sub + .layui-unselect{
+    width: calc(100% - 110px);
+}
+.display-device .type{
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.display-device li{
+    width: 30%;
+    height: 40px;
+    line-height: 40px;
+    background: #E4E8EA;
+    text-align: center;
+    font-size: 1rem;
+    float: left;
+    margin: 0 1% 1% 0;
+    cursor: pointer;
+}
+#left li:first-child{
+    top: 0;
+    left: 0;
+}
+.box{
+    width: 198px;
+    height: 78px;
+    line-height: 78px;
+    border: 1px dashed #999;
+    text-align: center;
+    /* font-size: 2rem; */
+    font-size: 1.125rem;
+    color: #ccc;
+    cursor: pointer;
+}
+#left li .layui-icon{
+    font-size: 30px;
+    color: #ccc;
+    position: absolute;
+    cursor: pointer;
+    display: none;
+}
+#left li .icon-top{
+    top: 0;
+}
+#left li .icon-right{
+    right: 0;
+}
+#left li .icon-bottom{
+    bottom: 0;
+}
+#left li .icon-left{
+    left: 0;
+}
+#left li.act > .layui-icon{
+    display: block;
+}
+#left li.act > .box{
+    border: 1px solid #40AAF4;
+}
+#left li .deleteIcon{
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: url(../images/flowPath/delete.png) no-repeat;
+    display: none;
+    z-index: 200;
+}
+
+#left li {
+    /* width: 198px; */
+    width: 278px;
+    height: 98px;
+    line-height: 78px;
+    border: 1px solid #999;
+    text-align: center;
+    background: #F2F4F5;
+    font-size: 1.125rem;
+    color: #333;
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+}
+
+#left svg {
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    z-index: 1;
+    /* background: url(../images/flowPath/drag_bg.png); */
+}
+#left .input:hover{
+    background: #A6A6A6;
+}
+#left li .text{
+    display: inline-block;
+    width: 224px;
+    height: 44px;
+    line-height: 44px;
+    border: 1px dashed #CCC;
+    position: absolute;
+    top: 26px;
+    left: 26px;
+}
+#left .top, #left .bottom{
+    width: 278px;
+    height: 26px;
+    position: absolute;
+    left: 0;
+    background: #F2F4F5;
+    z-index: 50;
+}
+#left .top{
+    top: 0;
+    /* border-bottom: 1px dashed #ccc; */
+}
+#left .bottom{
+    bottom: 0;
+    /* border-top: 1px dashed #ccc; */
+}
+
+#left .leftCir, #left .rightCir{
+    width: 26px;
+    height: 98px;
+    position: absolute;
+    top: 0;
+    background: #F2F4F5;
+    z-index: 50;
+}
+#left .leftCir{
+    left: 0;
+    /* border-right: 1px dashed #ccc; */
+}
+#left .rightCir{
+    right: 0;
+    /* border-left: 1px dashed #ccc; */
+}
+#left .leftCir .circle{
+    top: 35px;
+    left: -6px;
+}
+#left .rightCir .circle{
+    top: 35px;
+    right: -6px;
+}
+.input .circle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    background: #fff;
+    cursor: crosshair;
+}
+.circle:hover {
+    background: #FC9901;
+}
+#flow{
+    width: 200%;
+    height: 200%;
+}
+
+.leftCir .circle{
+    cursor: pointer;
+}
+.leftCir .circle:hover{
+    background: transparent
+}
+.selLine .layui-layer-content{
+    padding: 10px;
+}
+.selLine a.layui-layer-btn0{
+    color: #fff;
+    background: #40AAF4;
+}
+.zoom {
+    width: 100px;
+    height: 40px;
+    position: fixed;
+    bottom: 4vh;
+    left: 20px;
+    border: 1px solid #CCC;
+    z-index: 9999;
+    cursor: pointer;
+    display: none;
+}
+.zoom i{
+    display: inline-block;
+    width: 50px;
+    height: 40px;
+    font-size: 40px;
+    text-align: center;
+}
+.zoom #zoomAdd{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.zoom #zoomReduce{
+    position: absolute;
+    top: -4px;
+    right: 0;
+}
+.mechine_title{
+    /* height: 28px; */
+    height: 48px;
+    /* line-height: 28px; */
+    line-height: 48px;
+    font-size: 0.875rem;
+    color: #fff;
+    text-align: left;
+}
+.mechine_title .state{
+    width: 50px;
+    display: inline-block;
+    /* height: 28px; */
+    height: 48px;
+    position: absolute;
+    right: 0;
+}
+.mechine_content{
+    /* height: 32px; */
+    height: 52px;
+    /* line-height: 32px; */
+    line-height: 52px;
+    position: relative;
+}
+.mechine_content span{
+    font-size: 0.875rem;
+    position: absolute;
+}
+.mechine_content .fl{
+    left: 2px;
+}
+.mechine_content .fr{
+    right: 2px;
+}
+.over .state{
+    width: 60px;
+}
+.layer-title{
+    font-size: 0.875rem;
+    color: #666;
+    background-color: #FFF;
+    border: 0;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.titleSplit{
+    display: block;
+    width: 250px;
+    height: 1px;
+    background: #DDD;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+}
+.closeBtn{
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    top: 16px;
+    left: 240px;
+    background: url(../images/flowPath/cancel.png) no-repeat;
+    cursor: pointer;
+}
+.firstDragTip{
+    width: 160px;
+    height: 40px;
+    font-size: 0.875rem;
+    line-height: 20px;
+    border-radius: 4px;
+    background: #E4E8EA;
+    text-align: center;
+    padding: 4px 0;
+    position: absolute;
+    display: none;
+    color: #666;
+}
+.xgMsg{
+    height: calc(40% - 60px);
+    overflow-y: auto;
+}

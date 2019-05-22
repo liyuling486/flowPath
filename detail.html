@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/flowPath.css">
+    <style>
+        .header div {
+            color: #666;
+        }
+
+        .lineDelete {
+            overflow: hidden;
+        }
+
+        .lineDelete .layui-layer-content {
+            width: 99%;
+            margin: 10px auto;
+            padding: 10px;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .lineDelete .layui-layer-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .lineDelete .layui-layer-btn a {
+            width: 64px;
+            height: 28px;
+            line-height: 28px;
+            font-size: 0.875rem;
+            padding: 0;
+        }
+
+        .macName {
+            font-size: 0.875rem;
+            color: #333;
+        }
+
+        .macName span {
+            color: #333;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+
+        .dic {
+            position: relative;
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+        }
+
+        .dic p {
+            padding-left: 10px;
+            font-size: 0.875rem;
+            color: #999;
+        }
+
+        .macLine {
+            width: 244px;
+            display: inline-block;
+            text-align: right;
+            border: 1px solid #ddd;
+            padding: 0 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .macLine li {
+            text-align: left;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .macLine .linkName {
+            display: inline-block;
+            font-size: 0.875rem;
+            color: #333;
+        }
+
+        .sign {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-right: 20px;
+            vertical-align: middle;
+        }
+
+        .sign0 {
+            background: #000;
+        }
+
+        .sign1 {
+            background: #1393AA;
+        }
+
+        .sign2 {
+            background: #3073C1;
+        }
+
+        .sign3 {
+            background: #A13E52;
+        }
+
+        .sign4 {
+            background: #31A068;
+        }
+
+        .lineDelete .layui-form-checkbox {
+            position: absolute;
+            top: 4px;
+            right: -8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-fluid">
+        <div class="header">
+            <a class="back">
+                <</a> <div class="msg" id="msg">流程图名称一</div>
+        <div class="layui-btn" id="look" data-type=1>浏览</div>
+        <div class="layui-btn" id="save">保存</div>
+    </div>
+
+    <!-- <div class="row">
+        <img src="./images/flowPath/connect.png" alt="">
+    </div> -->
+    <div class="body">
+        <div class="body-content">
+            <div class="left" id="left">
+                <ul class="flow" id="flow">
+                    <svg style="fill:none;stroke:#68f;stroke-width:2">
+
+                    </svg>
+                </ul>
+                <div class="zoom">
+                    <i class="add-icon" id="zoomAdd">+</i>
+                    <i class="reduce-icon" id="zoomReduce">-</i>
+                </div>
+            </div>
+            <div class="right">
+                <div class="select-device layui-form">
+                    <select name="device-type" lay-verify="" id="device-type" lay-filter="device-type">
+                        <option value="021">全厂</option>
+                        <option value="type">设备类型</option>
+                        <option value="workshop">车间</option>
+                    </select>
+                    <span class="select-split-line"></span>
+                    <select name="device-type-sub" lay-verify="" id="device-type-sub" lay-filter="device-type-sub">
+                    </select>
+                </div>
+                <div class="display-device">
+                </div>
+                <div class="xgMsg">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备横间距</label>
+                        <div class="layui-input-block">
+                          <input type="number" id="devSpaceX" lay-verify="title" autocomplete="off" placeholder="请输入数字 / px" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备纵间距</label>
+                        <div class="layui-input-block">
+                          <input type="number" id="devSpaceY" lay-verify="title" autocomplete="off" placeholder="请输入数字 / px" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- <div class="layui-form-item">
+                        <label class="layui-form-label">线间距</label>
+                        <div class="layui-input-block">
+                          <input type="number" id="lineSpace" lay-verify="title" autocomplete="off" placeholder="请输入数字 / px" class="layui-input">
+                        </div>
+                    </div> -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">拐点位置</label>
+                        <div class="layui-input-block">
+                          <input type="number" id="turnSpace" lay-verify="title" autocomplete="off" placeholder="请输入数字 / px" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                          <button class="layui-btn" id="config" lay-filter="config">确认</button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="firstDragTip">
+        点击各设备周围区域<br />
+        可按点击顺序连接设备
+    </div>
+    <script src="http://emcshare.com/Public/static/js/jquery-1.8.3.min.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src="detail.js"></script>
+    <script>
+        var form;
+        var DATA;
+        layui.use(['form'], function () {
+            form = layui.form;
+
+            sessionStorage.setItem('dragData', JSON.stringify([]));
+
+            ajaxMachine();
+
+            if (sessionStorage.getItem('currName')) {
+                $('#msg').text(sessionStorage.getItem('currName'));
+            } else {
+                $('#msg').text('流程图名称9999')
+            }
+
+            form.on('select(device-type)', function (data) {
+                selData(data.value);
+            });
+
+            form.on('select(device-type-sub)', function (data) {
+                var type = $('#device-type').val();
+                ajaxMachine(type, data.value);
+            });
+
+        });
+
+        $(document).on('click', '.back', function () {
+            layer.open({
+                type: 1,
+                skin: 'xjlcOpen',
+                closeBtn: false,
+                title: false,
+                area: ['540px', '240px'],
+                btn: ['否', '是'],
+                content: '<div class="openTitle">提示</div><div class="openContent">添加/修改内容尚未保存, 是否保存当前页面修改 ?</div>',
+                yes: function (index, layero) {
+                    layer.close(index)
+                },
+                btn2: function () {
+                    window.location.href = 'index.html';
+                }
+            });
+
+        });
+
+        $(document).on('click', '#save', function () {
+            layer.msg('保存成功')
+        });
+
+        $(document).on('click', '#look', function () {
+            saveMac($(this).attr('data-type'));
+            if ($(this).attr('data-type') == 1) {
+                $('body').attr('ondragstart', "return false");  // 禁止拖动
+                $('body').attr('onselectstart', "return false");  // 禁止拖动
+                $('.left').css('width', '100%');
+                $('#flow li').css('border-color', '#999');
+                $(this).attr('data-type', 0);
+                $(this).text('修改');
+                $('.zoom').show();
+            } else {
+                $('body').attr('ondragstart', '');
+                $('body').attr('onselectstart', '');
+                $('.left').css('width', '70%');
+                $(this).attr('data-type', 1);
+                $(this).text('浏览');
+                $('.zoom').hide();
+                $('#flow').css('transform', 'scale(1)')
+            }
+            $('.right').toggle();
+
+        });
+
+        $(document).on('click', '.box-warpper', function () {
+            $('.box-warpper').removeClass('act');
+            $(this).addClass('act');
+        });
+
+        $(document).on('click', '.zoom i', function () {
+            var scale = 1;
+
+            if ($('#flow').css('transform') == 'none') {
+                scale = 1
+            } else {
+                scale = parseFloat($('#flow').css('transform').split('(')[1].split(',')[0])
+            }
+
+            if (scale < 1.5 && $(this).attr('id') == 'zoomAdd') {
+                scale += 0.1
+            } else if (scale > 0.5 && $(this).attr('id') == 'zoomReduce') {
+                scale -= 0.1
+            }
+            $('#flow').css('transform', 'scale(' + scale + ')')
+        });
+
+        function saveMac(param) {
+            var $mac = $('#flow li');
+            var data = DATA;
+            var name = '';
+            var html = '';
+            var status;
+            $mac.each(function (i, v) {
+                name = $(v).data('label');
+                $.each(data, function (i1, v1) {
+                    $.each(v1.data, function (i2, v2) {
+                        if (v2.name == name) {
+                            if (param == 1) {
+                                status = machineStatus(v2.status);
+                                value = parse(v2);
+
+                                directionNum(v2);
+
+                                html = `<div data-name="status0" class="mechine_title ${status[0]}">
+                                            <span class="name">${name}</span>
+                                            <span class="state fr" data-name="status1">${status[1]}</span>
+                                        </div>
+                                        <div class="mechine_content" style="position:relative">
+                                            <span class="fl" data-name="v0" data-tip="value[3]">${value[0]}</span>
+                                            <span class="mechine_data" data-name="v1" style="position:absolute;left:40%" data-tip="value[4]">${value[1]}</span>
+                                            <span class="fr" data-name="v2" data-tip="value[5]">${value[2]}</span>
+                                        </div>`;
+                            } else {
+                                html = `<span class="text" data-id = "${v2.id}" >${v2.name}</span>
+                                        <div class = "input leftCir" data-type="left" data-num="${v2.left}"></div>
+                                        <div class = "input rightCir" data-type="right" data-num="${v2.right}"></div>
+                                        <div class = "input top" data-type="top" data-num="${v2.top}"></div>
+                                        <div class = "input bottom" data-type="bottom" data-num="${v2.bottom}"></div>
+                                        <i class="deleteIcon"></i>`
+                            }
+                            $(v).html(html);
+                        }
+                    })
+                })
+            })
+        }
+
+        function directionNum(data) {
+            var dragData = JSON.parse(sessionStorage.getItem('dragData'));
+            var direction = ['top', 'right', 'bottom', 'left'];
+
+            $.each(dragData, function (i, v) {
+                if (data.name == v.name) {
+                    $.each(direction, function (i1, v1) {
+                        data[v1] = v[v1].num
+                    })
+                }
+            })
+        }
+
+        function selData(type) {    // 下拉列表获取数据 并 渲染select
+            ajaxMachine(type);
+            if (!type) type = 'workshop';
+            url = 'http://emcshare.com/index.php/Admin/KanbanApi/multiple/type/machine-' + type +
+                '?company_id=1001';
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (res) {
+                    var html = '';
+                    if (res.error == 0) {
+                        $.each(res.data, function (i, v) {
+                            html += '<option value="' + v.name + '">' + v.name + '</option>'
+                        })
+                        $('#device-type-sub').html(html);
+                        form.render();
+                    }
+                }
+            })
+        }
+
+        function ajaxMachine(param, mac) {
+            var url = '';
+            if (param == 'type') {
+                url = './data/data3.json';
+            } else if (param == 'workshop') {
+                url = './data/data4.json';
+            } else {
+                url = './data/data2.json';
+            }
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (res) {
+                    var html = '';
+                    if (res.result) {
+                        DATA = res.data;
+                        var dragData = JSON.parse(sessionStorage.getItem('dragData'));
+                        $.each(res.data, function (i, v) {
+                            if (!mac) {
+                                html += `<div class="type">
+                                <div class="body-title">${v.name}</div>
+                                    <ul>`
+                                $.each(v.data, function (i1, v1) {
+                                    html += `<li class="node" draggable="true" data-name="${v1.name}">${v1.name}</li>`
+                                })
+                                html += `</ul>
+                                </div>`
+                            } else if (mac == v.name) {    // ?????
+                                html = `<div class="type">
+                                <div class="body-title">${mac}</div>
+                                    <ul>`
+                                $.each(v.data, function (i1, v1) {
+                                    html += `<li class="node" draggable="true" data-name="${v1.name}">${v1.name}</li>`
+                                })
+                                html += `</ul>
+                                </div>`
+                            }
+                        })
+                        $('.right .display-device').html(html);
+
+
+                        $.each(dragData, function (i, v) {
+                            $('.type li[data-name=' + v.name + ']').hide();
+                        })
+                        init();
+                    };
+                }
+            });
+        }
+
+        /**
+         * 设备状态
+         * @param {object} v
+         */
+        function machineStatus(state) {
+            var status = parseInt(state);
+            var desc = '关机';
+            var class_name = 'close';
+
+            switch (status) {
+                case 1:
+                    desc = '电流超限';
+                    class_name = 'over';
+                    break;
+                case 2:
+                    // if (v.alarm) {
+                    //     desc = v.alarm;
+                    //     class_name = 'over';
+                    // } else {
+                    //     desc = '运行';
+                    //     class_name = 'run';
+                    // }
+                    desc = '运行';
+                    class_name = 'run';
+                    break;
+                case 3:
+                    desc = '关机';
+                    class_name = 'off';
+                    break;
+                case 4:
+                    desc = '待机';
+                    class_name = 'await';
+                    break;
+                case 5:
+                    desc = '停机';
+                    class_name = 'stop';
+                    break;
+                default:
+                    desc = '运行';
+                    class_name = 'run';
+            }
+
+            return [class_name, desc];
+        };
+
+        /**
+         * 按设备类型解析数据
+         * @param {object} v
+         */
+        function parse(v) {
+            var value = [];
+            var type = v.typename;
+
+            var max_current = v.dl || 0;
+            var max_current_name = v.dlc || 'a';
+
+            switch (type) {
+                case '温度/压力/湿度':
+                    value = app.temperature(v);
+                    break;
+                case '流体输送':
+                    //value = [round(v.real_time_flow, 1) + 'm³/h', round(v.pressure, 2) + 'MPa', round(v.act_pow_total, 1) + 'kw'];
+                    //value.push('实时流量', '实时压力', '实时功率');
+                    //console.log(parseFloat(v.now_total_flow),parseFloat(v.first_total_flow), v.last_total_flow)
+                    var temp = parseFloat(v.now_total_flow) - parseFloat(v.first_total_flow);
+                    value = [round(v.real_time_flow, 1) + 'm³/h', round(v.temperature, 1) + '℃', (v.now_total_flow || 0) + 'm³'];
+                    value.push('实时流量', '温度', '工作时段输送量' + round(temp, 1) + 'm³');
+                    break;
+                case '空压机':
+                case '空压气站':
+                    value = [round(round(v.real_time_flow) / 60, 1) + 'm³/min', round(round(v.pressure) * 10, 1) + 'bar', (round(v.rate_power) > 0 ? round(round(v.act_pow_total) * 100 / round(v.rate_power), 1) : 0) + '%'];
+                    value.push('实时流量', '实时压力', '负载');
+                    break;
+                case '容器':
+                    value = [round(v.pressure, 1) + 'm', round(round(v.pressure) * round(v.bottom_area_of_container), 1) + 'm³', round(round(v.pressure) * 100 / round(v.max_height_of_liquid), 1) + '%'];
+                    value.push('液位高度', '蓄水量', '百分比');
+                    break;
+                default:
+                    value = [max_current.toFixed(1) + 'A(' + max_current_name + '相)', (v.add_avg_power || 0) + 'kw', (v.pecent || 0) + '%'];
+                    value.push('最大电流', '实时功率', '功率浮动');
+            }
+            return value;
+        }
+    </script>
+</body>
+
+</html>

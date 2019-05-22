@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/flowPath.css">
+</head>
+
+<body>
+    <div class="layui-fluid">
+        <div class="header">
+            <div class="msg">生产流程图</div>
+        </div>
+        <div class="row">
+            <div class="layui-btn" id="xjlc">新建流程</div>
+        </div>
+        <div class="body">
+            <div class="body-title">全部流程图</div>
+            <div class="body-content">
+            </div>
+        </div>
+    </div>
+    <script src="http://emcshare.com/Public/static/js/jquery-1.8.3.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="mock/localMock.js"></script>
+    <script src="layui/layui.js"></script>
+    <script>
+        var layer;
+        layui.use(['layer'], function () {
+            layer = layui.layer;
+            flowPic();
+
+        });
+
+        $(document).on('click', '#xjlc', function () {
+            layer.open({
+                type: 1,
+                skin: 'xjlcOpen',
+                closeBtn: false,
+                title: false,
+                area: ['540px', '240px'],
+                btn: ['取消', '确定'],
+                content: '<div class="openTitle">新建</div><div class="openContent"><input placeholder="请输入新增流程名称" class="layui-input"/></div><div class="openBfoot"></div>',
+                yes: function (index, layero) {
+                    layer.close(index)
+                },
+                btn2: function () {
+                    window.location.href = 'detail.html';
+                    sessionStorage.setItem('currName', '');
+                }
+            });
+        })
+
+        $(document).on('click', '.flow-item', function () {
+            var name = $(this).find('.bottom').text();
+            sessionStorage.setItem('currName', name);
+            window.location.href = 'detail.html';
+        })
+
+        function flowPic() {
+            $.ajax({
+                url: '/flowChart',
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    if (res.result) {
+                        var html = '';
+                        $.each(res.data, function (i, v) {
+                            html += '<div class="flow-item"><div class="top"><img src="' + v.img + '" alt="" class="firstPic"><div class="mask"></div></div><div class="bottom">' + v.name + '</div></div>';
+                        })
+                        $('.body-content').html(html)
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

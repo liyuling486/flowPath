@@ -1,0 +1,37 @@
+{
+    "result": true,
+    "data": [
+        {
+            "img": "images/flowPath/imager.png",
+            "name": "流程图名称一"
+        },
+        {
+            "img": "images/flowPath/imager1.png",
+            "name": "流程图名称二"
+        },
+        {
+            "img": "images/flowPath/imager2.png",
+            "name": "流程图名称三"
+        },
+        {
+            "img": "images/flowPath/imager3.png",
+            "name": "流程图名称四"
+        },
+        {
+            "img": "images/flowPath/imager4.png",
+            "name": "流程图名称五"
+        },
+        {
+            "img": "images/flowPath/imager5.png",
+            "name": "流程图名称六"
+        },
+        {
+            "img": "images/flowPath/imager6.png",
+            "name": "流程图名称七"
+        },
+        {
+            "img": "images/flowPath/imager7.png",
+            "name": "流程图名称八"
+        }
+    ]
+}
