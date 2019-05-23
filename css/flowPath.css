@@ -408,7 +408,7 @@
     height: 48px;
     /* line-height: 28px; */
     line-height: 48px;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #fff;
     text-align: left;
 }
@@ -439,6 +439,7 @@
 }
 .over .state{
     width: 60px;
+    font-size: 0.875rem;
 }
 .layer-title{
     font-size: 0.875rem;
